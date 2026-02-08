@@ -14,7 +14,7 @@ const checkJWT = (req, res, next) => {
     } catch (err) {
         return res.json({
             success: false,
-            message: "Invalid or missing token",
+            message:`Invalid token: ${err.message}`,
             data: null,
         });
     }
