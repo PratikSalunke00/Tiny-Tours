@@ -40,7 +40,7 @@ const userSchema = new Schema({
         ref: "User",
         required: true,
     },
-});
+} , { timestamps: true });
 
 const Tour = model("Tour", userSchema);
 

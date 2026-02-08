@@ -8,7 +8,7 @@ dotenv.config();
 //Routes
 import { getHome , getHealth} from "./controllers/health.js";
 import { postSignup , postLogin} from "./controllers/auth.js";
-import { getTours , postTours } from "./controllers/tours.js";
+import { getTours , postTours , putTours } from "./controllers/tours.js";
 
 //Middleware
 import { checkJWT } from "./middleware/auth.js";
@@ -30,6 +30,7 @@ app.post("/login", postLogin );
 // tours routes
 app.post("/tours", checkJWT, postTours );
 app.get("/tours", checkJWT, getTours);
+app.put("/tours/:id", checkJWT, putTours);
 
 connectDB();
 app.listen(PORT, () => {
