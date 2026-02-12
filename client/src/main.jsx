@@ -2,12 +2,13 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 
 import { BrowserRouter, Route, Routes } from "react-router";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Tours from "./pages/Tours";
-import NewTour from "./pages/NewTour";
-import EditTour from "./pages/EditTour";
+import Home from "./views/Home.jsx";
+import Login from "./views/Login.jsx";
+import Signup from "./views/Signup.jsx";
+import Tours from "./views/Tours.jsx";
+import NewTour from "./views/NewTour.jsx";
+import EditTour from "./views/EditTour.jsx";
+import Dashboard from "./views/Dashboard.jsx";
 
 const root = createRoot(document.getElementById("root"));
 
@@ -17,6 +18,7 @@ root.render(
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/tours" element={<Tours />} />
       <Route path="/tours/new" element={<NewTour />} />
       <Route path="/tours/edit" element={<EditTour />} />
