@@ -35,21 +35,18 @@ function Dashboard() {
     <div>
       <Navbar />
 
-      
       <div className="w-2/3 block mx-auto mt-10">
-      
+        <Link to="/tours/new">
+          <img
+            src={imgNewTour}
+            alt="Add New Tour"
+            className="fixed bottom-10 right-10 h-10 cursor-pointer"
+          />
+        </Link>
 
-      <Link to="/tours/new">
-        <img
-          src={imgNewTour}
-          alt="Add New Tour"
-          className="fixed bottom-10 right-10 h-10 cursor-pointer"
-        />
-      </Link>
-
-      {tours.map((tourItem, index) => {
-        return <TourCard key={index} {...tourItem}/>;
-      })}
+        {tours.map((tourItem, index) => {
+          return <TourCard key={index} {...tourItem} />;
+        })}
       </div>
 
       <Toaster />

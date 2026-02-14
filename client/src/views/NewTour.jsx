@@ -58,7 +58,7 @@ function NewTour() {
           onChange={(e) => {
             setNewTour({
               ...newTour,
-              title: e.target.value,
+              description: e.target.value,
             });
           }}
         />

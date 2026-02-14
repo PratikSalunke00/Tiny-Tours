@@ -36,17 +36,19 @@ function TourCard({
         <span className="mr-2">Posted by:</span>{" "}
         <Avatar name={name} size={"small"} /> <strong>{name}</strong> ({email})
       </div>
-      
-      {photos.map((photo, index) => {
-        return (
-          <img
-            key={index}
-            src={photo}
-            alt={`Tour Photo ${index + 1}`}
-            className="w-full h-auto mt-2 rounded-md object-cover"
-          />
-        );
-      })}
+
+      <div className="flex">
+        {photos.map((photos, index) => {
+          return (
+            <img
+              key={index}
+              src={photos}
+              alt={`Tour Photo ${index + 1}`}
+              className="w-25 h-auto mt-2 rounded-md object-cover mx-2 cursor-pointer"
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
