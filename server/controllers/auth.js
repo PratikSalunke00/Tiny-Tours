@@ -1,8 +1,8 @@
-import User from "./models/user.js";
+import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { JWT_EXPIRATION_TIME } from "./config.js";
+import { JWT_EXPIRATION_TIME } from "../config.js";
 
 dotenv.config();
 

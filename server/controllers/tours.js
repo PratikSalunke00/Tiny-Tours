@@ -1,4 +1,4 @@
-import Tour from "./models/Tour.js";
+import Tour from "../models/Tour.js";
 import dotenv from "dotenv";
 dotenv.config();
 

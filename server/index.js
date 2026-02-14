@@ -11,7 +11,8 @@ import { postSignup , postLogin} from "./controllers/auth.js";
 import { getTours , postTours , putTours } from "./controllers/tours.js";
 
 //Middleware
-import { checkJWT } from "./middleware/auth.js";
+// import { checkJWT } from "./middleware/auth.js";
+import { checkJWT } from "./middlewares/jwt.js";
 
 const app = express();
 app.use(express.json());

@@ -4,6 +4,8 @@ import { getUserData, logoutUser } from "../utils";
 import Button from "./Button";
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router";
+import Avatar from "./Avatar";
+
 
 function Navbar() {
   const [userData, setUserData] = useState({});
@@ -30,9 +32,7 @@ function Navbar() {
       <div>
         {userData?.name ? (
           <div className="flex items-center space-x-2">
-            <span className="bg-black text-white flex items-center justify-center h-8 w-8 rounded-full mr-2">
-              {userData?.name[0]}
-            </span>
+            <Avatar name={userData.name} />
             Hello, {userData.name}!
             <Button
               variant="tertiary"

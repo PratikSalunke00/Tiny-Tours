@@ -39,7 +39,7 @@ function NewTour() {
       <Navbar />
       <h1>Add new tour</h1>
 
-      <div className="w-80block mx-auto mt-10">
+      <div className="w-80 block mx-auto mt-10">
         <Input
           type={"text"}
           placeholder={"Enter Title"}

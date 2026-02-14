@@ -15,7 +15,7 @@ const userSchema = new Schema({
         type: [String],
         default: [],
     },
-     
+
     startDate: {
         type: Date
     },
@@ -25,13 +25,7 @@ const userSchema = new Schema({
     },
 
     photos: {
-        type: [
-            {
-                imgUrl: String,
-                title: String,
-                description: String,
-            },
-        ],
+        type: [String],
         default: [],
     },
 
@@ -40,7 +34,7 @@ const userSchema = new Schema({
         ref: "User",
         required: true,
     },
-} , { timestamps: true });
+}, { timestamps: true });
 
 const Tour = model("Tour", userSchema);
 
