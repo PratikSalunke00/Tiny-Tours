@@ -1,4 +1,4 @@
-function Input({ type, placeholder, value, onChange }) {
+function Input({ type, placeholder, value, onChange, onKeyDown }) {
   return (
     <input
       type={type}
