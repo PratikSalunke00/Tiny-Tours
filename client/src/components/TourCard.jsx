@@ -47,8 +47,8 @@ function TourCard({
       </div>
 
       <div className="flex">
-        {photos.map((photos, index) => {
-          return PhotoViewer({ imgUrl: photos, index });
+        {photos.map((photo, index) => {
+          return PhotoViewer({ imgUrl: photo, index });
         })}
       </div>
     </div>

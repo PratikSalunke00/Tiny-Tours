@@ -1,19 +1,19 @@
-import Input from "./Input";
 import { useState } from "react";
+import Input from "./Input";
 
-function MultiSelect({ selectedItems, placeholder, onRemoveItem, onAddItem }) {
+function MultiSelect({ selectedItems, onRemoveItem, onAddItem, placeholder }) {
   const [newItem, setNewItem] = useState("");
   return (
     <div>
       {selectedItems.map((item, index) => {
         return (
           <div
-            className="border border-gray-600 bg-gray-200 mx-2 px-2 rounded-full inline-block my-1"
+            className="border border-gray-600 mx-2 px-2 rounded-full bg-gray-200 min-w-[100px] inline-block my-1 "
             key={index}
           >
             {item}{" "}
             <span
-              className="ml-2 cursor-pointer text-gray-400 hover:text-gray-800"
+              className="cursor-pointer text-gray-400 hover:text-gray-800 ml-4"
               onClick={() => {
                 onRemoveItem(item);
               }}
@@ -25,11 +25,14 @@ function MultiSelect({ selectedItems, placeholder, onRemoveItem, onAddItem }) {
       })}
       <Input
         type="text"
-        placeholder={placeholder}
+        placeholder="Add City"
         value={newItem}
-        onChange={(e) => setNewItem(e.target.value)}
+        onChange={(e) => {
+          setNewItem(e.target.value);
+        }}
         onKeyDown={(e) => {
-          if (e.key === "Enter" && newItem.trim() !== "") {
+          if (e.key === "Enter") {
+            console.log("Add Item:", e.target.value);
             onAddItem(e.target.value);
             setNewItem("");
           }

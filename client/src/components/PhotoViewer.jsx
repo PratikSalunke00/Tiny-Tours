@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Trash2 } from "lucide-react";
 
 function PhotoPreview({ imgUrl, show, onClose }) {
   if (!show) return null;
@@ -20,10 +21,10 @@ function PhotoPreview({ imgUrl, show, onClose }) {
   );
 }
 
-function PhotoViewer({ imgUrl, index }) {
+function PhotoViewer({ imgUrl, index, onDelete, showDelete = false }) {
   const [showPreview, setShowPreview] = useState(false);
   return (
-    <>
+    <div className="flex items-center justify-center relative w-fit shadow-md rounded-md">
       <img
         key={index}
         src={imgUrl}
@@ -32,12 +33,17 @@ function PhotoViewer({ imgUrl, index }) {
         onClick={() => setShowPreview(true)}
       />
 
+      {showDelete ? (
+        <Trash2 className="absolute right-2 top-2 h-4 w-4 text-red-500 cursor-pointer"
+        onClick ={ () => onDelete(imgUrl)} />
+      ) : null}
+
       <PhotoPreview
         imgUrl={imgUrl}
         show={showPreview}
         onClose={() => setShowPreview(false)}
       />
-    </>
+    </div>
   );
 }
 
