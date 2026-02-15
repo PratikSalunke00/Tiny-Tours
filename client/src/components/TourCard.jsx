@@ -1,5 +1,6 @@
-import { Building2 } from "lucide-react";
+import { Building2, Footprints, LandPlot } from "lucide-react";
 import Avatar from "./Avatar";
+import PhotoViewer from "./PhotoViewer";
 
 function TourCard({
   _id,
@@ -32,6 +33,14 @@ function TourCard({
           );
         })}
       </p>
+
+      <p className="flex items-center my-2 text-sm">
+        <Footprints className="mx-2 h-6 w-6"/> Started on: {new Date(startDate).toLocaleDateString()}{" "}
+        and
+        <LandPlot  className="ml-4 mr-2 h-6 w-6"/>
+        Ended on: {new Date(endDate).toLocaleDateString()}
+      </p>
+
       <div className="flex items-center">
         <span className="mr-2">Posted by:</span>{" "}
         <Avatar name={name} size={"small"} /> <strong>{name}</strong> ({email})
@@ -39,14 +48,7 @@ function TourCard({
 
       <div className="flex">
         {photos.map((photos, index) => {
-          return (
-            <img
-              key={index}
-              src={photos}
-              alt={`Tour Photo ${index + 1}`}
-              className="w-25 h-auto mt-2 rounded-md object-cover mx-2 cursor-pointer"
-            />
-          );
+          return PhotoViewer({ imgUrl: photos, index });
         })}
       </div>
     </div>
