@@ -32,26 +32,51 @@ function Dashboard() {
   }, []);
 
   return (
-    <div> 
+    <div className="min-h-screen bg-gray-100">
       <Navbar />
 
-      <div className="w-2/3 block mx-auto mt-10">
-        <Link to="/tours/new">
+      {/* Main Container */}
+      <div className="max-w-6xl mx-auto px-4 mt-10">
+
+        {/* Heading */}
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">
+          Your Tours
+        </h1>
+
+        {/* Empty State */}
+        {tours.length === 0 && (
+          <div className="text-center text-gray-500 mt-20">
+            <p className="text-xl">No tours available</p>
+            <p className="text-sm mt-2">Click the + button to add a new tour</p>
+          </div>
+        )}
+
+        {/* Grid Layout */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {tours.map((tourItem, index) => {
+            return (
+              <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 p-2">
+                <TourCard key={index} {...tourItem} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Floating Add Button */}
+      <Link to="/tours/new">
+        <div className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 p-4 rounded-full shadow-lg transition duration-300 cursor-pointer">
           <img
             src={imgNewTour}
             alt="Add New Tour"
-            className="fixed bottom-10 right-10 h-10 cursor-pointer"
+            className="h-8 w-8"
           />
-        </Link>
-
-        {tours.map((tourItem, index) => {
-          return <TourCard key={index} {...tourItem} />;
-        })}
-      </div>
+        </div>
+      </Link>
 
       <Toaster />
     </div>
   );
 }
 
-export default Dashboard;
+export default Dashboard; 
