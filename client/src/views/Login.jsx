@@ -32,12 +32,14 @@ function Login() {
 
       const { jwtToken, data } = response.data;
 
-      localStorage.setItem("token", jwtToken);
+      // localStorage.setItem("token", jwtToken);
+      localStorage.setItem("userJwtToken", jwtToken);
+      // localStorage.setItem("userJwtToken", response.data.token);
       localStorage.setItem("userData", JSON.stringify(data));
       
       setTimeout(() => {
-        window.location.href = "/dashboard";
-      }, 1500);
+        window.location.href = "/";
+      }, 500);
     
     } else {
       toast.error(response.data.message, { id: "loginError" });

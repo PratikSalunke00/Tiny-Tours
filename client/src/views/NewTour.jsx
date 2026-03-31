@@ -14,6 +14,7 @@ import {
   upload,
 } from "@imagekit/react";
 import PhotoViewer from "../components/PhotoViewer.jsx";
+import { useNavigate } from "react-router";
 
 function NewTour() {
   const [newTour, setNewTour] = useState({
@@ -107,19 +108,33 @@ function NewTour() {
     }
   };
  
-  const addTour = async () => {
-    const response = await axios.post("http://localhost:8080/tours", newTour, {
-      headers: {
-        Authorization: `Bearer ${getUserJwtToken()}`,
-      },
-    });
-    console.log(response.data);
+const navigate = useNavigate();
+
+const addTour = async () => {
+  try {
+    const token = getUserJwtToken();
+
+    const response = await axios.post(
+      "http://localhost:8080/tours",
+      newTour,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
     if (response.data.success) {
-      toast.success(response.data.message);
+      toast.success("Tour added successfully!");
+      navigate("/"); 
     } else {
       toast.error(response.data.message);
     }
-  };
+
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Error");
+  }
+};
 
   useEffect(() => {
     setPageTitle("Add Tour - TinyTours");
