@@ -106,7 +106,7 @@ function NewTour() {
       }
     }
   };
-
+ 
   const addTour = async () => {
     const response = await axios.post("http://localhost:8080/tours", newTour, {
       headers: {

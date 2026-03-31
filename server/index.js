@@ -3,6 +3,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./db.js";
 import ImageKit from "@imagekit/nodejs";
+import { postContact, getContact } from "./controllers/contact.js";
+import { checkJWT } from "./middlewares/jwt.js";
+
 
 dotenv.config();
 
@@ -13,7 +16,7 @@ import { getTours, postTours, putTours } from "./controllers/tours.js";
 
 //Middleware
 // import { checkJWT } from "./middleware/auth.js";
-import { checkJWT } from "./middlewares/jwt.js";
+
 
 const client = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
@@ -46,6 +49,12 @@ app.post("/login", postLogin);
 app.post("/tours", checkJWT, postTours);
 app.get("/tours", checkJWT, getTours);
 app.put("/tours/:id", checkJWT, putTours);
+
+app.post("/api/contact", checkJWT, postContact);
+
+app.get("/api/contact", getContact)
+
+
 
 connectDB();
 app.listen(PORT, () => {

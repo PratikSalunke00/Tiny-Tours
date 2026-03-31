@@ -32,7 +32,7 @@ function Login() {
 
       const { jwtToken, data } = response.data;
 
-      localStorage.setItem("userJwtToken", jwtToken);
+      localStorage.setItem("token", jwtToken);
       localStorage.setItem("userData", JSON.stringify(data));
       
       setTimeout(() => {

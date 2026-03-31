@@ -7,7 +7,7 @@ import { Link } from "react-router";
 import Avatar from "./Avatar";
 
 
-function Navbar() {
+function Navbar() { 
   const [userData, setUserData] = useState({});
 
   const fetchUserData = () => {
@@ -51,6 +51,24 @@ function Navbar() {
             Login
           </Link>
         )}
+      </div>
+
+      <div>
+        <Link
+          className="bg-white text-blue-500 px-3 py-1 rounded"
+          to="/contact"
+        >
+          Contact Us
+        </Link>
+      </div>
+
+      <div>
+        <Link
+          className="bg-white text-blue-500 px-3 py-1 rounded"
+          to="/recieved-contact"
+        >
+          My Contact
+        </Link>
       </div>
 
       <Toaster />

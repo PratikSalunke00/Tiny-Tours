@@ -1,132 +1,103 @@
-import User from "../models/user.js";
+import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-import { JWT_EXPIRATION_TIME } from "../config.js";
 
-dotenv.config();
+// ✅ SIGNUP
+const postSignup = async (req, res) => {
+  const { name, email, mobile, city, country, password } = req.body;
 
-const postSignup =  async (req, res) => {
-    const { name, email, mobile, city, country, password } = req.body;
-
-    if (!name) {
-        return res.json({
-            success: false,
-            message: "Name is required",
-            data: null,
-        });
-    }
-
-    if (!email) {
-        return res.json({
-            success: false,
-            message: "Email is required",
-            data: null,
-        });
-    }
-
-    if (!password) {
-        return res.json({
-            success: false,
-            message: "Password is required",
-            data: null,
-        });
-    }
-
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser) {
-        return res.json({
-            success: false,
-            message: "User with this email already exists",
-            data: null,
-        });
-    }
-
-    const salt = bcrypt.genSaltSync(10);
-    const encryptedPassword = bcrypt.hashSync(password, salt);
-
-    const newUser = new User({
-        name,
-        email,
-        mobile,
-        city,
-        country,
-        password: encryptedPassword,
+  if (!name || !email || !password) {
+    return res.json({
+      success: false,
+      message: "Name, Email and Password are required",
     });
+  }
 
-    try {
-        const savedUser = await newUser.save();
+  const existingUser = await User.findOne({ email });
 
-        return res.json({
-            success: true,
-            message: "User registered successfully",
-            data: savedUser,
-        });
-    } catch (error) {
-        return res.json({
-            success: false,
-            message: `User registration failed: ${error.message}`,
-            data: null,
-        });
-    }
+  if (existingUser) {
+    return res.json({
+      success: false,
+      message: "User already exists",
+    });
+  }
+
+  const hashedPassword = bcrypt.hashSync(password, 10);
+
+  const newUser = new User({
+    name,
+    email,
+    mobile,
+    city,
+    country,
+    password: hashedPassword,
+  });
+
+  try {
+    await newUser.save();
+
+    return res.json({
+      success: true,
+      message: "Signup successful",
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
-const postLogin =async (req, res) => {
-    const { email, password } = req.body;
-    if (!email) {
-        return res.json({
-            success: false,
-            message: "Email is required",
-            data: null,
-        });
+// ✅ LOGIN
+const postLogin = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.json({
+      success: false,
+      message: "Email and Password required",
+    });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.json({
+        success: false,
+        message: "User not found",
+      });
     }
 
-    if (!password) {
-        return res.json({
-            success: false,
-            message: "Password is required",
-            data: null,
-        });
+    const isMatch = bcrypt.compareSync(password, user.password);
+
+    if (!isMatch) {
+      return res.json({
+        success: false,
+        message: "Invalid password",
+      });
     }
 
-    const existingUser = await User.findOne({ email });
+    const jwtToken = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
 
-    if (!existingUser) {
-        return res.json({
-            success: false,
-            message: "User doesn't exist with this email, please sign up",
-            data: null,
-        });
-    }
+    user.password = undefined; // hide password
 
-    const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
-    existingUser.password = undefined;
-
-    if (isPasswordCorrect) {
-        const jwtToken = jwt.sign(
-            {
-                id: existingUser.id,
-                email: existingUser.email,
-            },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: JWT_EXPIRATION_TIME,
-            }
-        );
-
-        return res.json({
-            success: true,
-            message: "Login successful",
-            data: existingUser,
-            jwtToken: jwtToken,
-        });
-    } else {
-        return res.json({
-            success: false,
-            message: "Invalid email or password",
-            data: null,
-        });
-    }
+    return res.json({
+      success: true,
+      message: "Login successful",
+      jwtToken,
+      data: user,
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
-export { postSignup , postLogin };
+
+export { postSignup, postLogin };

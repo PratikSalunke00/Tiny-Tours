@@ -32,7 +32,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <div>
+    <div> 
       <Navbar />
 
       <div className="w-2/3 block mx-auto mt-10">

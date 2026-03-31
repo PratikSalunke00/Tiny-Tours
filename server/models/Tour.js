@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
-const userSchema = new Schema({
-    title: {
+const tourSchema = new Schema({
+    title: { 
         type: String,
         required: true,
     },
@@ -36,6 +36,6 @@ const userSchema = new Schema({
     },
 }, { timestamps: true });
 
-const Tour = model("Tour", userSchema);
+const Tour = model("Tour", tourSchema);
 
 export default Tour;
