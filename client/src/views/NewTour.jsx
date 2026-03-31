@@ -115,7 +115,7 @@ const addTour = async () => {
     const token = getUserJwtToken();
 
     const response = await axios.post(
-      "http://localhost:8080/tours",
+     `${import.meta.env.VITE_API_BASE_URL}/tours`,
       newTour,
       {
         headers: {
