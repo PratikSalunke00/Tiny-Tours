@@ -10,7 +10,11 @@ function RecievdContact() {
     try {
       const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-      const response = await axios.get(`${BASE_URL}/api/contact`);
+      const response = await axios.get(`${BASE_URL}/api/contact`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("userJwtToken")}`,
+        },
+      });
 
       if (response.data.success) {
         setContact(response.data.data);
@@ -41,11 +45,21 @@ function RecievdContact() {
             key={cont._id}
             className="w-[350px] bg-white shadow-lg p-5 rounded-xl border border-green-200"
           >
-            <p><b>👤 Name:</b> {cont.name}</p>
-            <p><b>📧 Email:</b> {cont.email}</p>
-            <p><b>📞 Phone:</b> {cont.phone}</p>
-            <p><b>📍 Location:</b> {cont.address}</p>
-            <p><b>🧳 Travel Plan:</b> {cont.message}</p>
+            <p>
+              <b>👤 Name:</b> {cont.name}
+            </p>
+            <p>
+              <b>📧 Email:</b> {cont.email}
+            </p>
+            <p>
+              <b>📞 Phone:</b> {cont.phone}
+            </p>
+            <p>
+              <b>📍 Location:</b> {cont.address}
+            </p>
+            <p>
+              <b>🧳 Travel Plan:</b> {cont.message}
+            </p>
           </div>
         ))}
       </div>

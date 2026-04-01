@@ -40,10 +40,13 @@ function Contact() {
         form,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            
+            Authorization: `Bearer ${localStorage.getItem("userJwtToken")}`,
           },
         }
       );
+
+      
 
       if (response.data.success) {
         toast.success("Inquiry sent successfully ✈️");

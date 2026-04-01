@@ -52,11 +52,11 @@ app.put("/tours/:id", checkJWT, putTours);
 
 app.post("/api/contact", checkJWT, postContact);
 
-app.get("/api/contact", getContact)
+app.get("/api/contact" ,checkJWT, getContact)
 
 
 
 connectDB();
 app.listen(PORT, () => {
     console.log(`Serever is running on PORT ${PORT}`);
-});
+}); 

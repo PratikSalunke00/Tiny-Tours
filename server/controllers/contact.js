@@ -32,7 +32,9 @@ const postContact = async (req, res) => {
 // GET CONTACT
 const getContact = async (req, res) => {
   try {
-    const contacts = await Contact.find().populate("createdBy", "email");
+    const contacts = await Contact.find({
+      createdBy: req.user.id,   
+    }).populate("createdBy", "email");
 
     return res.json({
       success: true,
